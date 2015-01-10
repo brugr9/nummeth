@@ -1,7 +1,7 @@
 # Numerische Methoden zur Approximation und Integration
 ### Programmierung TI-89
 
-##### Semesterarbeit
+#### Semesterarbeit
 
 Schwerpunktfach Physik und Angewandte Mathematik<br>
 Maturitätsschule für Erwachsene MSE, Reussbühl 2005
