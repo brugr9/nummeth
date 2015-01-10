@@ -1,8 +1,5 @@
-
-# nummeth
-
-### Numerische Methoden zur Approximation und Integration
-#### Programmierung TI-89
+# Numerische Methoden zur Approximation und Integration
+### Programmierung TI-89
 
 ##### Semesterarbeit
 
