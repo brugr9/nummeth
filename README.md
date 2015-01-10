@@ -6,10 +6,11 @@
 
 #### Programmierung TI-89
 
-Bruggmann Roland<br>
-Luzern, Mai 2005
+Semesterarbeit
+
 
 Schwerpunktfach Physik und Angewandte Mathematik<br>
 Maturitätsschule für Erwachsene MSE, Reussbühl
+Luzern, Mai 2005
 
 <a target="_blank" href="https://speakerdeck.com/brugr9/numerische-methoden-approximation-und-integration-bericht">Bericht</a> auf speakerdeck
