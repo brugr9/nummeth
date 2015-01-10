@@ -8,7 +8,6 @@ Maturitätsschule für Erwachsene MSE, Reussbühl 2005
 <hr>
 ![Bildschirmfoto](doc/img/nummeth_image008.png)
 ![Bildschirmfoto](doc/img/nummeth_image010.png)
-![Bildschirmfoto](doc/img/nummeth_image012.png)
 ![Bildschirmfoto](doc/img/nummeth_image020.png)
 <hr>
 ##### Beschreibung
