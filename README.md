@@ -1,6 +1,7 @@
 # Numerische Methoden <br>zur Approximation und Integration
 ### Programmierung TI-89
 
+![Bildschirmfoto](doc/TI-89_pocket_calculator_small.png)
 #### Semesterarbeit
 
 Schwerpunktfach Physik und Angewandte Mathematik<br>
@@ -10,7 +11,6 @@ Maturitätsschule für Erwachsene MSE, Reussbühl 2005
 ![Bildschirmfoto](doc/img/nummeth_image010.png)
 ![Bildschirmfoto](doc/img/nummeth_image016.png)
 ![Bildschirmfoto](doc/img/nummeth_image018.png)
-![Bildschirmfoto](doc/img/nummeth_image034.png)
 <hr>
 ##### Beschreibung
 - Applikation zur numerischen Approximation und Integration auf dem Taschenrechner TI-89.
