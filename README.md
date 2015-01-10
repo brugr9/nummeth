@@ -11,7 +11,7 @@ Maturitätsschule für Erwachsene MSE, Reussbühl 2005
 ![Bildschirmfoto](doc/img/nummeth_image012.png)
 ![Bildschirmfoto](doc/img/nummeth_image020.png)
 <hr>
-##### Beschreibung:<br>
+##### Beschreibung
 - Applikation zur numerischen Approximation und Integration auf dem Taschenrechner TI-89.
 
 <hr>
