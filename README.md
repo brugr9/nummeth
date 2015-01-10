@@ -10,6 +10,9 @@ Schwerpunktfach Physik und Angewandte Mathematik<br>
 Maturitätsschule für Erwachsene MSE, Reussbühl, Mai 2005
 <hr>
 ![Bildschirmfoto](doc/img/nummeth_image008.png)
+![Bildschirmfoto](doc/img/nummeth_image010.png)
+![Bildschirmfoto](doc/img/nummeth_image012.png)
+![Bildschirmfoto](doc/img/nummeth_image020.png)
 <hr>
 ##### Beschreibung:<br>
 - Applikation zur numerischen Approximation und Integration auf dem Taschenrechner TI-89.
