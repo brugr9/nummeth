@@ -12,4 +12,4 @@ Luzern, Mai 2005
 Schwerpunktfach Physik und Angewandte Mathematik<br>
 Maturitätsschule für Erwachsene MSE, Reussbühl
 
-<a href="https://speakerdeck.com/brugr9/numerische-methoden-approximation-und-integration-bericht">Bericht</a> auf speakerdeck
+<a target="_blank" href="https://speakerdeck.com/brugr9/numerische-methoden-approximation-und-integration-bericht">Bericht</a> auf speakerdeck
