@@ -12,7 +12,7 @@ Maturitätsschule für Erwachsene MSE, Reussbühl, Mai 2005
 Beschreibung:
 - Applikation zur numerischen Approximation und Integration auf dem Taschenrechner TI-89.
 
-Themen:
+Stichworte:
 - Approximation: Bisection, Regula falsi, Newton
 - Integration: Rechteck-, Trapez-, Tangenten-, Simpson-Verfahren
 - Taschenrechner TI-89
