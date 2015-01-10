@@ -8,7 +8,7 @@ Semesterarbeit
 
 Schwerpunktfach Physik und Angewandte Mathematik<br>
 Maturitätsschule für Erwachsene MSE, Reussbühl, Mai 2005
-
+<hr>
 Beschreibung:
 - Applikation zur numerischen Approximation und Integration auf dem Taschenrechner TI-89.
 
