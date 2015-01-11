@@ -20,7 +20,7 @@ Maturitätsschule für Erwachsene MSE, Reussbühl 2005
 - Approximation: Bisection, Regula falsi, Newton
 - Integration: Rechteck-, Trapez-, Tangenten-, Simpson-Verfahren
 - Taschenrechner TI-89
-- Programmiersprache: TI-BASIC
+- Programmiersprache TI-Basic
 
 ##### Bericht
 - <a target="_blank" href="https://speakerdeck.com/brugr9/numerische-methoden-approximation-und-integration-bericht">Bericht</a> (auf speakerdeck)
