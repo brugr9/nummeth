@@ -7,10 +7,10 @@
 Schwerpunktfach Physik und Angewandte Mathematik<br>
 Maturitätsschule für Erwachsene MSE, Reussbühl 2005
 <hr>
-![Bildschirmfoto](doc/img/nummeth_image008.png)
-![Bildschirmfoto](doc/img/nummeth_image010.png)
-![Bildschirmfoto](doc/img/nummeth_image016.png)
-![Bildschirmfoto](doc/img/nummeth_image018.png)
+![Bildschirmfoto](doc/img/nummeth_image008.png "Bildschirmfoto nummeth: Menu Methode.")
+![Bildschirmfoto](doc/img/nummeth_image010.png "Bildschirmfoto nummeth: Menu Approximation.")
+![Bildschirmfoto](doc/img/nummeth_image016.png "Bildschirmfoto nummeth: Menu Parameter.")
+![Bildschirmfoto](doc/img/nummeth_image018.png "Bildschirmfoto nummeth: GUI Bisection.")
 <hr>
 ##### Beschreibung
 - Applikation zur numerischen Approximation und Integration auf dem Taschenrechner TI-89.
