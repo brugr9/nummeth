@@ -13,7 +13,7 @@ Maturitätsschule für Erwachsene MSE, Reussbühl 2005
 ![Dialog Bisection](doc/img/nummeth_image018.png "Dialog Bisection")
 <hr>
 ##### Beschreibung
-- Applikation zur numerischen Approximation und Integration auf dem Taschenrechner TI-89.
+Applikation zur numerischen Approximation und Integration auf dem Taschenrechner TI-89.
 
 <hr>
 ##### Stichworte
