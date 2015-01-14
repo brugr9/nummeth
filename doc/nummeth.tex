@@ -1,4 +1,11 @@
-\documentclass[a5paper,9pt]{scrreprt}
+\documentclass[
+	a4paper							% paper format
+	,12pt							% fontsize
+	,twoside						% double-sided
+	,openright						% begin new chapter on right side
+% 	,notitlepage						% use no standard title page
+% 	,parskip=half						% set paragraph skip to half of a line
+]{scrreprt}							% KOMA-script report
 
 %% Zeichensatz:
 \usepackage[T1]{fontenc}	% Zeichensatz T1 verwenden
@@ -50,9 +57,9 @@
 \begin{abstract}
 Diese Arbeit dokumentiert eine Implementierung numerischer Methoden zur Approximation (Bisection, Regula falsi, Newton) und Integration (Rechteck-, Trapez-, Tangenten-, Simpson-Verfahren) f\"ur den Taschenrechner TI-89.
 
-Als Programmiersprache kommt TI-BASIC zum Einsatz, den Quellcode zum Programm \enquote{nummeth() -- Numerische Methoden} habe ich auf einer Intel-x86-Maschine mit GNU/Linux als Betriebssystem und dem Editor \enquote{Kate} erstellt. Um das Programm auf den TI-89 zu laden, verwendete ich die Software \enquote{TiLP}.
+Als Programmiersprache kommt TI-BASIC zum Einsatz, den Quellcode zum Programm \enquote{nummeth() -- Numerische Methoden} wurde auf einer Intel-x86-Maschine mit GNU/Linux als Betriebssystem und dem Editor \enquote{Kate} erstellt. Mit der Software \enquote{TiLP} kann das Programm auf den TI-89 geladen werde.
 
-Als Nachschlagwerke und Grundlage zur Programmierung dienten mir ausschliesslich das dem TI-89 von Texas Instruments mitgelieferte Benutzerhandbuch zur Advanced Mathematics Software Version 2.0 \cite{AVM99} in gedruckter Form sowie die Hinweise zur Version 2.8 \cite{AVM02} als PDF.
+% Als Nachschlagwerke und Grundlage zur Programmierung dienten mir ausschliesslich das dem TI-89 von Texas Instruments mitgelieferte Benutzerhandbuch zur Advanced Mathematics Software Version 2.0 \cite{AVM99} in gedruckter Form sowie die Hinweise zur Version 2.8 \cite{AVM02} als PDF.
 \end{abstract}
 
 \setcounter{secnumdepth}{2}
@@ -86,7 +93,7 @@ Mit \verb|2nd| $\blacktriangleright$ \verb|VAR-LINK| kann der Variablen-Bildschi
   \label{fig:VARLINK}
 \end{figure}
 
-\newpage
+% \newpage
 Der Pfad der Programmvariablen ist somit in die Eingabezeile kopiert worden. Dieser muss nun noch mit einer schliessenden runden Klammer '\verb|)|' erg\"anzt werden (siehe Abbildung \ref{fig:CLI}). Mit \verb|ENTER| wird das Programm gestartet.
 \begin{figure}[h]
   \centering
@@ -106,7 +113,7 @@ Der Pfad der Programmvariablen ist somit in die Eingabezeile kopiert worden. Die
   \label{fig:CATALOG}
 \end{figure}
 
-\newpage
+% \newpage
 \section{Aufgabe, Methode, Parameter f(x) (optional)}
 \subsection*{Aufgabe}
 Die Wahl der Aufgabe erfolgt per Cursor im Drop-Down-Menu, best\"atigen mit \verb|ENTER| (siehe Abbildung \ref{fig:Aufgabe}).
@@ -134,13 +141,13 @@ Die Wahl der Methode erfolgt per Cursor im Drop-Down-Menu, best\"atigen mit \ver
 %   \label{fig:MethodeIntegration}
 % \end{figure}
 
-\newpage
+% \newpage
 \subsection*{Parameter f(x)}
 Sind im \verb|Y-Editor| Funktionen erfasst worden, erscheint nach der Wahl einer Methode ein Dialog 'Parameter’ mit der M\"oglichkeit, eine der erfassten Funktionen zur weiteren Bearbeitung auszuw\"ahlen. Dies erfolgt im Drop-Down-Menu 'Funktion aus dem Y-Editor uebernehmen?’ durch die Wahl des Eintrages 'Ja’ (siehe Abbildung \ref{fig:ParameterFxFrage}).
 \begin{figure}[h]
   \centering
   \includegraphics[width=4cm]{img/nummeth_image014.png}
-  \caption{Dialog 'Parameter: Funktion aus dem Y-Editor uebernehmen?'}
+  \caption{Dialog 'Parameter'}
   \label{fig:ParameterFxFrage}
 \end{figure}
 
@@ -152,7 +159,7 @@ Die Wahl der Funktion erfolgt per Cursor im Drop-Down-Menu 'f(x) = ’ (siehe Ab
   \label{fig:ParameterFxWahl}
 \end{figure}
 
-\newpage
+% \newpage
 \section{Erfassen der Parameter}
 Der Wechsel zwischen dem Eingabemodus f\"ur Ziffern und jenem f\"ur Buchstaben dient die alpha-Taste. In folgenden Dialogen kann eine Funktion f(x) erfasst werden, falls nicht schon im \verb|Y-Editor| eingegeben.
 
@@ -172,7 +179,7 @@ Zu beachten: F\"ur diese Methoden muss das Intervall so gew\"ahlt werden, dass d
   \label{fig:ParameterApproximationRegulaFalsi}
 \end{figure}
 
-\newpage
+% \newpage
 \subsubsection*{Newton}
 Der Startwert f\"ur die Methode Newton muss wie folgt gew\"ahlt werden:
 \begin{itemize}
@@ -191,7 +198,7 @@ F\"ur die Methode nach Newton kann zwischen der Anzahl Iterationen und der Genau
   \label{fig:ParameterApproximationNewton}
 \end{figure}
 
-\newpage
+% \newpage
 \subsection{Integration}
 Zu beachten: F\"ur diese Methoden muss das Intervall so gew\"ahlt werden, dass die Funktions­werte f(a) und f(b) gr\"osser als Null sind, wobei b > a ist. Der Wert f\"ur 'n Schritte' muss eine ganze, positive Zahl sein.
 
@@ -209,7 +216,7 @@ Zu beachten: F\"ur diese Methoden muss das Intervall so gew\"ahlt werden, dass d
   \label{fig:ParameterIntegrationTrapez}
 \end{figure}
 
-\newpage
+% \newpage
 \subsubsection*{Tangenten- oder Simpson-Verfahren}
 Zu beachten: Bei diesen Methoden muss der Wert f\"ur die Variable n gerade sein.
 \begin{figure}[h]
@@ -225,7 +232,7 @@ Zu beachten: Bei diesen Methoden muss der Wert f\"ur die Variable n gerade sein.
   \label{fig:ParameterIntegrationSimpson}
 \end{figure}
 
-\newpage
+% \newpage
 \section{Resultate speichern}
 \subsection{Variablenname}
 Um die errechneten Resultate zu speichern, werden Variablennamen wie folgt generiert:
@@ -255,7 +262,7 @@ Existiert im Verzeichnis Numerik bereits eine Variable mit gew\"ahltem Variablen
   \label{fig:Matirzenvariable}
 \end{figure}
 
-\newpage
+% \newpage
 \subsection{Approximation}
 Nullstelle sowie Ergebnisse k\"onnen im Dialog 'Resultat’ ins angegebene Verzeichnis gespeichert werden (siehe Abbildung \ref{fig:ResultatApproximationBisection}).
 % (siehe Abbildungen \ref{fig:ResultatApproximationBisection}, \ref{fig:ResultatApproximationRegulaFalsi} und \ref{fig:ResultatApproximationNewton}).
@@ -309,7 +316,7 @@ Die Ergebnisse k\"onnen per Dialog 'Resultat’ ins angegebene Verzeichnis gespe
 %   \label{fig:ResultatIntegrationSimpson}
 % \end{figure}
 
-\newpage
+% \newpage
 \section{Ende der Berechnungen}
 \begin{figure}[h]
   \centering
@@ -330,18 +337,27 @@ Die als Matrizenvariable gespeicherten Resultate k\"onnen mit \verb|APPS| $\blac
   \item 'Folder' ist das Verzeichnis, in das die Matrize gespeichert wurde.
   \item 'Variable' ist der Name der Matirzenvariable.
 \end{itemize}
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=4cm]{img/nummeth_image050.png}
+%   \caption{Applikationen}
+%   \label{fig:Applications}
+% \end{figure}
+% \begin{figure}[h]
+%   \centering
+%   \includegraphics[width=4cm]{img/nummeth_image052.png}
+%   \caption{\"Offnen-Dialog}
+%   \label{fig:Open}
+% \end{figure}
+% 
 \begin{figure}[h]
   \centering
   \includegraphics[width=4cm]{img/nummeth_image050.png}
-  \caption{Applikationen}
-  \label{fig:Applications}
-\end{figure}
-\begin{figure}[h]
-  \centering
   \includegraphics[width=4cm]{img/nummeth_image052.png}
-  \caption{\"Offnen-Dialog}
+  \caption{Applikationen und \"offnen-Dialog}
   \label{fig:Open}
 \end{figure}
+% 
 In die Matrize werden jeweils auch Aufgabe, Methode und Funktion gespeichert, damit ersichtliche ist, wie die Resultate zustande kamen. In der Tabelle kann mit den Pfeiltasten gearbeitet werden: Der Inhalt der aktiven Zelle wird jeweils in der Eingabezeile eingeblendet (siehe Abbildung \ref{fig:Matrix}).
 \begin{figure}[h]
   \centering
@@ -350,11 +366,15 @@ In die Matrize werden jeweils auch Aufgabe, Methode und Funktion gespeichert, da
   \label{fig:Matrix}
 \end{figure}
 
-
+% 
 \listoffigures
-
-\bibliography{./bib/nummeth}
-
+% 
+\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+\renewcommand{\bibname}{Literaturverzeichnis}
+\nocite{AVM99}
+\nocite{AVM02}
+\bibliography{bib/nummeth}{}
+% 
 \appendix
 \chapter{Flussdiagramm}
 \label{sec:Flowchart}
