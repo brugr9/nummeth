@@ -24,4 +24,4 @@ Applikation zur numerischen Approximation und Integration auf dem Taschenrechner
 - Dateiformat *.89p
 
 ##### Bericht
-- <a target="_blank" href="https://speakerdeck.com/brugr9/numerische-methoden-approximation-und-integration-bericht">Bericht</a> (auf speakerdeck)
+- <a target="_blank" href="https://speakerdeck.com/brugr9/numerische-methoden-approximation-und-integration-bericht">Bericht</a> (auf Speaker Deck)
