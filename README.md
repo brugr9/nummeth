@@ -2,7 +2,6 @@
 ### Programmierung TI-89
 
 ![TI-89 pocket calculator](doc/img/ti89/TI-89_pocket_calculator_small.png "TI-89 pocket calculator")
-#### Semesterarbeit
 
 Schwerpunktfach Physik und Angewandte Mathematik<br>
 Maturitätsschule für Erwachsene MSE, Reussbühl 2005
