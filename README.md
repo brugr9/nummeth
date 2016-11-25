@@ -21,7 +21,6 @@ Applikation zur numerischen Approximation und Integration auf dem Taschenrechner
 - Integration: Rechteck-, Trapez-, Tangenten-, Simpson-Verfahren
 - Taschenrechner TI-89
 - Programmiersprache TI-Basic
-- Dateiformat *.89p
 
 ##### Bericht
-- <a target="_blank" href="https://speakerdeck.com/brugr9/numerische-methoden-approximation-und-integration-bericht">Bericht</a> (auf Speaker Deck)
+- <a target="_blank" href="https://www.hashdoc.com/documents/262843/numerische-methoden-approximation-und-integration">Bericht</a> (auf Hashdoc)
