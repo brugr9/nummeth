@@ -1,4 +1,5 @@
-\documentclass[a5paper,9pt]{scrreprt}
+% \documentclass[a5paper,9pt]{scrreprt}
+\documentclass[a4paper,10pt]{scrreprt}
 
 %% Zeichensatz:
 \usepackage[T1]{fontenc}	% Zeichensatz T1 verwenden
@@ -39,10 +40,10 @@
 %% Titelei
 \author{Bruggmann Roland}
 \subject{Schwerpunktfach Physik und Angewandte Mathematik}
-\title{
-\includegraphics[width=0.3\textwidth]{img/TI-89_pocket_calculator.png}
+\title{\fbox{\includegraphics[width=0.3\textwidth]{img/TI-89-pocket-calculator-kraftwerk-look.png}}
 \bigskip
-\\Numerische Methoden
+% \\Programmierung numerischer Methoden zur Approximation und Integration f\"ur den Taschenrechner TI-89
+\\Numerische Methoden: 
 \\Approximation und Integration
 \\Programmierung TI-89}
 \date{Luzern, Mai 2005}
@@ -50,44 +51,59 @@
 \publishers{Maturit\"atsschule f\"ur Erwachsene MSE, Reussb\"uhl}
 
 \begin{document}
-\maketitle[-1] % Argument: Seitennummer f\"ur die Erste Seite der Titelei
+\pagestyle{empty}
+\maketitle % Argument: Seitennummer f\"ur die Erste Seite der Titelei
 
 \begin{abstract}
-Diese Arbeit dokumentiert eine Implementation numerischer Methoden zur Approximation (Bisection, Regula falsi, Newton) und Integration (Rechteck-, Trapez-, Tangenten-, Simpson-Verfahren) f\"ur den Taschenrechner TI-89.
+Diese Arbeit dokumentiert eine Implementation numerischer Methoden zur Approximation (Bisection, Regula falsi und Newton) und Integration (Rechteck-, Trapez-, Tangenten- und Simpson-Verfahren) f\"ur den Taschenrechner TI-89.
 
 Als Programmiersprache kommt TI-BASIC zum Einsatz, den Quellcode zum Programm \enquote{nummeth() -- Numerische Methoden}  wurde auf einer Intel-x86-Maschine mit GNU/Linux als Betriebssystem und dem Editor \enquote{Kate} erstellt. Um das Programm auf den TI-89 zu laden, wurde die Software \enquote{TiLP} verwendet.
 
 Als Nachschlagwerke und Grundlage zur Programmierung dienten ausschliesslich das dem TI-89 von Texas Instruments mitgelieferte Benutzerhandbuch zur Advanced Mathematics Software Version 2.0 \cite{AVM99} in gedruckter Form sowie die Hinweise zur Version 2.8 \cite{AVM02} als PDF.
 \end{abstract}
 
+% \cleardoublepage
+\pagestyle{empty}
+\setcounter{page}{0}
 \setcounter{secnumdepth}{2}
 \tableofcontents
 
+% \cleardoublepage
+\pagestyle{plain}
+
 \chapter{Bemerkungen zu Beginn}
 \section{Allgemeines}
-Kenntnisse zur Bedienung des TI-89 werden voraussgesetzt und k\"onnen z.B. im zum Rechner mitgelieferten Benutzerhandbuch \cite{AVM99} nachgeschlagen werden.
+Kenntnisse zur Bedienung des TI-89 werden voraussgesetzt und k\"onnen z.B. im Benutzerhandbuch \cite{AVM99} nachgeschlagen werden, das zum Rechner mitgeliefert wurde. 
 
-Im Programm \verb|nummeth| kann mit \verb|ESC| jeweils zum vorherigen Fenster gewechselt werden. Numerische Eingaben werden jeweils auf ihre G\"ultigkeit gepr\"uft. Bei einer ung\"ultigen Eingabe erscheint eine Fehlermeldung. Danach besteht die M\"oglichkeit, die Eingabe zu korrigieren.
+Im Programm \verb|nummeth| kann mit \verb|ESC| jeweils zum vorherigen Fenster gewechselt werden. Numerische Eingaben werden jeweils auf ihre G\"ultigkeit gepr\"uft. Bei einer ung\"ultigen Eingabe erscheint eine Fehlermeldung. Danach besteht die M\"oglichkeit, die Eingabe zu korrigieren (siehe Abbildung~\ref{fig:Flowchart}).
 
 \section{Erfassen von Funktionen}
 \subsection*{Vor dem Programmstart}
-Funktionen k\"onnen im \verb|Y-Editor| eingegeben und im Bildschirm \verb|Graph| zur Wahl des Intervalls untersucht werden.
+Funktionen k\"onnen im Y\hbox{-}Editor eingegeben und im Bildschirm \verb|Graph| zur Wahl des Intervalls untersucht werden.
 
-Die im \verb|Y-Editor| eingegebenen Funktionen \verb|y1(x)| bis \verb|y10(x)| stehen dem Programm \verb|nummeth| zur Verf\"ugung, k\"onnen darin also optional ausgew\"ahlt werden -- sowohl bei einer Approximation als auch bei einer Inte­gration.
+Die im Y\hbox{-}Editor eingegebenen Funktionen \verb|y1(x)| bis \verb|y10(x)| stehen dem Programm \verb|nummeth| zur Verf\"ugung, k\"onnen darin also optional ausgew\"ahlt werden -- sowohl bei einer Approximation als auch bei einer Inte­gration.
 
 \subsection*{Nach dem Programmstart}
-Eine Funktion kann auch erst nach dem Programmstart mit den anderen Parametern (Intervall, Iterationen etc.) erfasst werden (siehe folgende Kapitel sowie das Flussdiagramm im Anhang \ref{sec:Flowchart}).
+Eine Funktion kann auch erst nach dem Programmstart mit den anderen Parametern (Intervall, Iterationen etc.) erfasst werden -- dies wird in den folgende Kapitel erl\"autert.
+
+\newpage
+\begin{figure}[h]
+  \centering
+  \includegraphics[height=\textheight]{img/nummeth_flowchart.png}
+  \caption{Flussdiagramm zu nummeth}
+  \label{fig:Flowchart}
+\end{figure}
 
 \chapter{Das Programm}
 \section{Programm starten}
-Mit dem Start des Programms werden einige Konfigurationen ausgel\"ost: Das Programm wird auf Fehler \"uberpr\"uft, aktuelles Ver­zeich­nis wird nach M\"oglichkeit \verb|NUMERIK|, aktuelle Einstellungen der Modi unter \verb|MODE| werden gesichert und f\"ur die Dauer des Pro­gramm­ab­laufs konfiguriert, eine Parameterliste wird erstellt und der \verb|Y-Editor| wird auf erfasste Funk­tio­nen untersucht. Dies kann beim erst­ma­ligen Gebrauch des Programms einige Sekunden dauern.
+Mit dem Start des Programms werden einige Konfigurationen ausgel\"ost: Das Programm wird auf Fehler \"uberpr\"uft, aktuelles Ver­zeich­nis wird nach M\"oglichkeit \verb|NUMERIK|, aktuelle Einstellungen der Modi unter \verb|MODE| werden gesichert und f\"ur die Dauer des Pro­gramm­ab­laufs konfiguriert, eine Parameterliste wird erstellt und der Y\hbox{-}Editor wird auf erfasste Funk­tio­nen untersucht. Dies kann beim erst­ma­ligen Gebrauch des Programms einige Sekunden dauern.
 
 \subsection*{Start mit VAR-LINK}
 Mit \verb|2nd| $\blacktriangleright$ \verb|VAR-LINK| kann der Variablen-Bildschirm aufgerufen werden. Im Folder \verb|NUMERIK| ist die Pro­gramm­variable \verb|nummeth| zu finden (siehe Abbildung \ref{fig:VARLINK}). Diese ist mit dem Cursor zu markieren und mit der Taste \verb|ENTER| zu bes­t\"a­ti­gen.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image001.png}
-  \caption{Variablen-Ordner}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image001.png}
+  \caption[Variablen-Bildschirm]{Variablen-Bildschirm mit Ordner NUMERIK und Programmvariable nummeth}
   \label{fig:VARLINK}
 \end{figure}
 
@@ -95,7 +111,7 @@ Mit \verb|2nd| $\blacktriangleright$ \verb|VAR-LINK| kann der Variablen-Bildschi
 Der Pfad der Programmvariablen ist somit in die Eingabezeile kopiert worden. Dieser muss nun noch mit einer schliessenden runden Klammer '\verb|)|' erg\"anzt werden (siehe Abbildung \ref{fig:CLI}). Mit \verb|ENTER| wird das Programm gestartet.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image003.png}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image003.png}
   \caption{Eingabezeile mit kopiertem Pfad}
   \label{fig:CLI}
 \end{figure}
@@ -106,8 +122,8 @@ Mit \verb|CATALOG| $\blacktriangleright$ \verb|F4 User-Defined| werden gespeiche
 Der Pfad der Programmvariablen ist somit in die Eingabezeile kopiert worden. Dieser muss nun noch mit einer schliessenden runden Klammer '\verb|)|' erg\"anzt werden (siehe Abbildung \ref{fig:CLI}). Mit \verb|ENTER| wird das Programm gestartet.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image005.png}
-  \caption{Variablen-Katalog}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image005.png}
+  \caption{Variablen-Katalog mit Eintrag nummeth}
   \label{fig:CATALOG}
 \end{figure}
 
@@ -117,8 +133,8 @@ Der Pfad der Programmvariablen ist somit in die Eingabezeile kopiert worden. Die
 Die Wahl der Aufgabe erfolgt per Cursor im Drop-Down-Menu, best\"atigen mit \verb|ENTER| (siehe Abbildung \ref{fig:Aufgabe}).
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image008.png}
-  \caption{Dialog 'Numerische Methoden: Aufgabe’}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image008.png}
+  \caption{Dialog Numerische Methoden mit Dropdown zur Wahl der Aufgabe}
   \label{fig:Aufgabe}
 \end{figure}
 
@@ -128,52 +144,52 @@ Die Wahl der Methode erfolgt per Cursor im Drop-Down-Menu, best\"atigen mit \ver
 % (siehe Abbildungen \ref{fig:MethodeApproximation} und \ref{fig:MethodeIntegration}).
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image010.png}
-  \caption{Dialog 'Numerische Approximation: Methode’}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image010.png}
+  \caption{Dialog Numerische Approximation mit Dropdown zur Wahl der Methode}
   \label{fig:MethodeApproximation}
 \end{figure}
 % \begin{figure}[h]
 %   \centering
-%   \includegraphics[width=4cm]{img/nummeth_image012.png}
+%   \includegraphics[width=0.5\textwidth]{img/nummeth_image012.png}
 %   \caption{Dialog 'Numerische Integration: Methode’}
 %   \label{fig:MethodeIntegration}
 % \end{figure}
 
 \newpage
 \subsection*{Parameter f(x)}
-Sind im \verb|Y-Editor| Funktionen erfasst worden, erscheint nach der Wahl einer Methode ein Dialog 'Parameter’ mit der M\"oglichkeit, eine der erfassten Funktionen zur weiteren Bearbeitung auszuw\"ahlen. Dies erfolgt im Drop-Down-Menu 'Funktion aus dem Y-Editor uebernehmen?’ durch die Wahl des Eintrages 'Ja’ (siehe Abbildung \ref{fig:ParameterFxFrage}).
+Sind im Y\hbox{-}Editor Funktionen erfasst worden, erscheint nach der Wahl einer Methode ein Dialog 'Parameter’ mit der M\"oglichkeit, eine der erfassten Funktionen zur weiteren Bearbeitung auszuw\"ahlen. Dies erfolgt im Drop-Down-Menu 'Funktion aus dem Y\hbox{-}Editor uebernehmen?’ durch die Wahl des Eintrages 'Ja’ (siehe Abbildung \ref{fig:ParameterFxFrage}).
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image014.png}
-  \caption{Dialog 'Parameter: Funktion aus dem Y-Editor uebernehmen?'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image014.png}
+  \caption{Dialog Parameter zum \"ubernehmen einer Funktion aus dem Y\hbox{-}Editor}
   \label{fig:ParameterFxFrage}
 \end{figure}
 
-Die Wahl der Funktion erfolgt per Cursor im Drop-Down-Menu 'f(x) = ’ (siehe Abbildung \ref{fig:ParameterFxWahl}). Hat eine der erfassten Funktionen mehr als 18 Zeichen, wird die Variable der Funktion angezeigt (z.B. \verb|y3(x) ; analog der Bezeichnung im \verb|Y-Editor ).
+Die Wahl der Funktion erfolgt per Cursor im Drop-Down-Menu 'f(x) = ’ (siehe Abbildung \ref{fig:ParameterFxWahl}). Hat eine der erfassten Funktionen mehr als 18 Zeichen, wird die Variable der Funktion angezeigt (z.B. \verb|y3(x)|; analog der Bezeichnung im Y\hbox{-}Editor).
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image016.png}
-  \caption{Dialog 'Parameter: f(x) = '}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image016.png}
+  \caption{Dialog Parameter mit Dropdown zur Wahl der Funktion aus dem Y\hbox{-}Editor}
   \label{fig:ParameterFxWahl}
 \end{figure}
 
 \newpage
 \section{Erfassen der Parameter}
-Der Wechsel zwischen dem Eingabemodus f\"ur Ziffern und jenem f\"ur Buchstaben dient die alpha-Taste. In folgenden Dialogen kann eine Funktion f(x) erfasst werden, falls nicht schon im \verb|Y-Editor| eingegeben.
+Der Wechsel zwischen dem Eingabemodus f\"ur Ziffern und jenem f\"ur Buchstaben dient die alpha-Taste. In folgenden Dialogen kann eine Funktion f(x) erfasst werden, falls nicht schon im Y\hbox{-}Editor eingegeben.
 
 \subsection{Approximation}
 \subsubsection*{Bisection oder Regula falsi}
 Zu beachten: F\"ur diese Methoden muss das Intervall so gew\"ahlt werden, dass der Funktions­wert f(a) kleiner, der Funktions­wert f(b) gr\"osser ist als Null. Der Wert f\"ur 'n Iterationen' muss eine ganze, positive Zahl sein.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image018.png}
-  \caption{Dialog 'Numerische Approximation: Methode Bisection'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image018.png}
+  \caption{Dialog Numerische Approximation f\"ur die Methode Bisection}
   \label{fig:ParameterApproximationBisection}
 \end{figure}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image020.png}
-  \caption{Dialog 'Numerische Approximation: Methode Regula falsi'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image020.png}
+  \caption{Dialog Numerische Approximation f\"ur die Methode Regula falsi}
   \label{fig:ParameterApproximationRegulaFalsi}
 \end{figure}
 
@@ -191,8 +207,8 @@ F\"ur die Methode nach Newton kann zwischen der Anzahl Iterationen und der Genau
 \end{itemize}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image022.png}
-  \caption{Dialog 'Numerische Approximation: Methode Newton'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image022.png}
+  \caption{Dialog Numerische Approximation f\"ur die Methode Newton}
   \label{fig:ParameterApproximationNewton}
 \end{figure}
 
@@ -203,14 +219,14 @@ Zu beachten: F\"ur diese Methoden muss das Intervall so gew\"ahlt werden, dass d
 \subsubsection*{Rechteck- oder Trapez-Verfahren}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image024.png}
-  \caption{Dialog 'Numerische Integration: Methode Rechteck-Verfahren'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image024.png}
+  \caption{Dialog Numerische Integration f\"ur die Methode Rechteck-Verfahren}
   \label{fig:ParameterIntegrationRechteck}
 \end{figure}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image026.png}
-  \caption{Dialog 'Numerische Integration: Methode Trapez-Verfahren'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image026.png}
+  \caption{Dialog Numerische Integration f\"ur die Methode Trapez-Verfahren}
   \label{fig:ParameterIntegrationTrapez}
 \end{figure}
 
@@ -219,26 +235,26 @@ Zu beachten: F\"ur diese Methoden muss das Intervall so gew\"ahlt werden, dass d
 Zu beachten: Bei diesen Methoden muss der Wert f\"ur die Variable n gerade sein.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image028.png}
-  \caption{Dialog 'Numerische Integration: Methode Tangenten-Verfahren'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image028.png}
+  \caption{Dialog Numerische Integration f\"ur die Methode Tangenten-Verfahren}
   \label{fig:ParameterIntegrationTangente}
 \end{figure}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image030.png}
-  \caption{Dialog 'Numerische Integration: Methode Simpson-Verfahren'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image030.png}
+  \caption{Dialog Numerische Integration f\"ur die Methode Simpson-Verfahren}
   \label{fig:ParameterIntegrationSimpson}
 \end{figure}
 
 \newpage
 \section{Resultate speichern}
 \subsection{Variablenname}
-Um die errechneten Resultate zu speichern, werden Variablennamen wie folgt generiert:
+Um die Resultate zu speichern, werden Variablennamen wie folgt generiert:
 \begin{itemize}
     \item Matrizenvariable f\"ur die Ergebnisse:
     \begin{itemize}
       \item die ersten drei Buchstaben der Aufgabe (\textbf{App}roximation oder \textbf{Int}egration)
-      \item die ersten vier Buchstaben der Methode (Approximation: \textbf{Bise}ction, \textbf{Regu}la falsi oder \textbf{Newt}on; Integration: \textbf{Rech}teck, \textbf{Trap}ez, \textbf{Tang}enten oder \textbf{Simp}son)
+      \item die ersten vier Buchstaben der Methode (\textbf{Bise}ction, \textbf{Regu}la falsi, \textbf{Newt}on, \textbf{Rech}teck, \textbf{Trap}ez, \textbf{Tang}enten oder \textbf{Simp}son)
       \item die Ziffer \textbf{1} als m\"oglicher Z\"ahler
       \item Beispiele: \textbf{AppRegu1}, \textbf{IntTang1}
     \end{itemize}
@@ -250,13 +266,11 @@ Um die errechneten Resultate zu speichern, werden Variablennamen wie folgt gener
       \item Beispiele: \textbf{NSBise1}, \textbf{NSNewt1}
     \end{itemize}
 \end{itemize}
-Diese Variablennamen k\"onnen selbstverst\"andlich ge\"andert werden. Zu beachten: Die Variablennamen-L\"ange ist im TI-89 auf acht Zeichen beschr\"ankt.
-
-Existiert im Verzeichnis Numerik bereits eine Variable mit gew\"ahltem Variablennamen, wird dies mit dem Dialog 'Matirzenvariable' gemeldet (siehe Abbildung \ref{fig:Matirzenvariable}). Mit \verb|ENTER| wird die bestehende Variable \"uberschrieben, mit \verb|ESC| kann zur\"uck in die Resultat-Anzeige gewechselt und die Variable editiert werden.
+Diese Variablennamen k\"onnen auch ge\"andert werden, wobei im TI-89 die L\"ange der Variablennamen auf acht Zeichen beschr\"ankt ist. Existiert im Verzeichnis Numerik bereits eine Variable mit gew\"ahltem Variablennamen, wird dies im Dialog 'Matirzenvariable' gemeldet (siehe Abbildung \ref{fig:Matirzenvariable}). Mit \verb|ENTER| wird die bestehende Variable \"uberschrieben, mit \verb|ESC| kann zur\"uck in die Resultat-Anzeige gewechselt und die Variable editiert werden.
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image032.png}
-  \caption{Dialog 'Matirzenvariable'}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image032.png}
+  \caption{Dialog Matirzenvariable}
   \label{fig:Matirzenvariable}
 \end{figure}
 
@@ -266,21 +280,21 @@ Nullstelle sowie Ergebnisse k\"onnen im Dialog 'Resultat’ ins angegebene Verze
 % (siehe Abbildungen \ref{fig:ResultatApproximationBisection}, \ref{fig:ResultatApproximationRegulaFalsi} und \ref{fig:ResultatApproximationNewton}).
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image034.png}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image034.png}
 %   \caption{Dialog 'Resultat Bisection’}
-  \caption{Dialog 'Resultat’ f\"ur die Methode Bisection}
+  \caption{Dialog Resultat f\"ur die Methode Bisection}
   \label{fig:ResultatApproximationBisection}
 \end{figure}
 % \begin{figure}[h]
 %   \centering
-%   \includegraphics[width=4cm]{img/nummeth_image036.png}
-%   \caption{Dialog 'Resultat Regula falsi’}
+%   \includegraphics[width=0.5\textwidth]{img/nummeth_image036.png}
+%   \caption{Dialog Resultat f\"ur die Methode Regula falsi}
 %   \label{fig:ResultatApproximationRegulaFalsi}
 % \end{figure}
 % \begin{figure}[h]
 %   \centering
-%   \includegraphics[width=4cm]{img/nummeth_image038.png}
-%   \caption{Dialog 'Resultat Newton’}
+%   \includegraphics[width=0.5\textwidth]{img/nummeth_image038.png}
+%   \caption{Dialog Resultat f\"ur die Methode Newton}
 %   \label{fig:ResultatApproximationNewton}
 % \end{figure}
 
@@ -290,26 +304,26 @@ Die Ergebnisse k\"onnen per Dialog 'Resultat’ ins angegebene Verzeichnis gespe
 % (siehe Abbildungen \ref{fig:ResultatIntegrationRechteck}, \ref{fig:ResultatIntegrationTrapez}, \ref{fig:ResultatIntegrationTangente} und \ref{fig:ResultatIntegrationSimpson}).
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image040.png}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image040.png}
 %   \caption{Dialog 'Resultat Rechteck-Verfahren’}
-  \caption{Dialog 'Resultat' f\"ur die Methode Rechteck-Verfahren}
+  \caption{Dialog Resultat f\"ur die Methode Rechteck-Verfahren}
   \label{fig:ResultatIntegrationRechteck}
 \end{figure}
 % \begin{figure}[h]
 %   \centering
-%   \includegraphics[width=4cm]{img/nummeth_image042.png}
+%   \includegraphics[width=0.5\textwidth]{img/nummeth_image042.png}
 %   \caption{Dialog 'Resultat Trapez-Verfahren’}
 %   \label{fig:ResultatIntegrationTrapez}
 % \end{figure}
 % \begin{figure}[h]
 %   \centering
-%   \includegraphics[width=4cm]{img/nummeth_image044.png}
+%   \includegraphics[width=0.5\textwidth]{img/nummeth_image044.png}
 %   \caption{Dialog 'Resultat Tangenten-Verfahren’}
 %   \label{fig:ResultatIntegrationTangente}
 % \end{figure}
 % \begin{figure}[h]
 %   \centering
-%   \includegraphics[width=4cm]{img/nummeth_image046.png}
+%   \includegraphics[width=0.5\textwidth]{img/nummeth_image046.png}
 %   \caption{Dialog 'Resultat Simpson-Verfahren’}
 %   \label{fig:ResultatIntegrationSimpson}
 % \end{figure}
@@ -318,14 +332,15 @@ Die Ergebnisse k\"onnen per Dialog 'Resultat’ ins angegebene Verzeichnis gespe
 \section{Ende der Berechnungen}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image048.png}
-  \caption{Pop-Up 'Neue Berechnung’}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image048.png}
+  \caption[Pop-Up Neue Berechnung oder Home]{Pop-Up zur Wahl einer neuen Berechnung oder f\"ur die R\"uckkehr zum Home-Bildschirm}
   \label{fig:NeueBerechnung}
 \end{figure}
 \begin{itemize}
   \item Neue Berechnung: Die Routine kehrt zur\"uck zur Auswahl der Aufgabe.
   \item Home: Der Bildschirm \verb|Home| wird eingeblendet, aktuelles Verzeichnis wird das aktuelle Verzeichnis vor Programmstart, \verb|MODE|-Einstellungen werden zur\"uckgesetzt auf den Stand wie vor dem Programmstart.
-  \item Achtung: \verb|ESC| sollte hier nicht verwendet werden, da sonst ein m\"oglicher Fehler (Undefined Variable) das Zur\"uckstellen der \verb|MODE| -Einstellungen auf die zu Beginn gesicherten Parameter umgeht.
+  \\\vspace{5pt}
+  \\Achtung: \verb|ESC| sollte hier nicht verwendet werden, da sonst ein m\"oglicher Fehler (Undefined Variable) das Zur\"uckstellen der \verb|MODE| -Einstellungen auf die zu Beginn gesicherten Parameter umgeht.
 \end{itemize}
 
 \chapter{Resultate als Matrizenvariable}
@@ -337,42 +352,34 @@ Die als Matrizenvariable gespeicherten Resultate k\"onnen mit \verb|APPS| $\blac
 \end{itemize}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image050.png}
+  \includegraphics[width=0.45\textwidth]{img/nummeth_image050.png}
   \caption{Applikationen}
   \label{fig:Applications}
 \end{figure}
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image052.png}
+  \includegraphics[width=0.45\textwidth]{img/nummeth_image052.png}
   \caption{\"Offnen-Dialog}
   \label{fig:Open}
 \end{figure}
+
+\newpage
 In die Matrize werden jeweils auch Aufgabe, Methode und Funktion gespeichert, damit ersichtliche ist, wie die Resultate zustande kamen. In der Tabelle kann mit den Pfeiltasten gearbeitet werden: Der Inhalt der aktiven Zelle wird jeweils in der Eingabezeile eingeblendet (siehe Abbildung \ref{fig:Matrix}).
 \begin{figure}[h]
   \centering
-  \includegraphics[width=4cm]{img/nummeth_image054.png}
+  \includegraphics[width=0.5\textwidth]{img/nummeth_image054.png}
   \caption{Resultate als Matrize}
   \label{fig:Matrix}
 \end{figure}
 
-
 \listoffigures
-
+\let\clearpage\relax
 \bibliography{./bib/nummeth}
+\endgroup
 
 \appendix
-\chapter{Flussdiagramm}
-\label{sec:Flowchart}
-\begin{figure}[h]
-  \centering
-  \includegraphics[height=0.74\textheight]{img/nummeth_flowchart.png}
-%   \caption{Flussdiagramm zu nummeth}
-%   \label{fig:Flowchart}
-\end{figure}
-
-% \newpage
-% \chapter{Quellcode}
-% \input{src/nummeth_license.tex}
-% \input{src/nummeth_src.tex} 
+\chapter{Quellcode}
+\input{src/nummeth_license.tex}
+\input{src/nummeth_src.tex} 
 
 \end{document}

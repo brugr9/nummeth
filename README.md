@@ -1,7 +1,7 @@
 # Numerische Methoden <br>zur Approximation und Integration
 ### Programmierung TI-89
 
-![TI-89 pocket calculator](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/TI-89_pocket_calculator_small.png "TI-89 pocket calculator")
+![TI-89 pocket calculator](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/TI-89-pocket-calculator-kraftwerk-look.png "TI-89 pocket calculator")
 
 Schwerpunktfach Physik und Angewandte Mathematik<br>
 Maturitätsschule für Erwachsene MSE, Reussbühl 2005<br>
