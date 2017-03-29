@@ -5,8 +5,6 @@ Applikation zur numerischen Approximation und Integration für den Taschenrechne
 - Technologie: Taschenrechner TI-89, Programmiersprache TI-Basic.
 - ![Bericht](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann.pdf "Bericht")
 
-![TI-89 pocket calculator](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/TI-89-pocket-calculator-kraftwerk-look.png "TI-89 pocket calculator")
-
 ![Menu Methode](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image008.png "Menu Methode")
 ![Menu Approximation](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image010.png "Menu Approximation")
 ![Menu Parameter](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image016.png "Menu Parameter")
