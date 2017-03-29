@@ -1,5 +1,5 @@
 # nummeth - Numerische Methoden zur Approximation und Integration
-Applikation zur numerischen Approximation und Integration für den Taschenrechner TI-89.
+Applikation zur numerischen Approximation und Integration mit dem Taschenrechner TI-89.
 
 - Stichworte: Bisection, Regula falsi, Newton, Rechteck-, Trapez-, Tangenten-, Simpson-Verfahren
 - Technologie: Taschenrechner TI-89, Programmiersprache TI-Basic.
