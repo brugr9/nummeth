@@ -3,7 +3,7 @@ Applikation zur numerischen Approximation und Integration mit dem Taschenrechner
 
 - Stichworte: Bisection, Regula falsi, Newton, Rechteck-, Trapez-, Tangenten-, Simpson-Verfahren
 - Technologie: Taschenrechner TI-89, Programmiersprache TI-Basic.
-- ![Bericht](https://www.hashdoc.com/documents/480102/numerische-methoden-approximation-und-integration#!fullscreen)
+- [Bericht](https://www.hashdoc.com/documents/480102/numerische-methoden-approximation-und-integration#!fullscreen)
 
 ![Menu Methode](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image008.png "Menu Methode")
 ![Menu Approximation](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image010.png "Menu Approximation")
