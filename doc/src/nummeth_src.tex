@@ -1,0 +1,513 @@
+\begin{verbatim}
+:nummeth()
+:Prgm
+:@Numerische Methoden 
+    Numerische Approximation 
+    (Bisection, Regula falsi, Newton) und 
+    Numerische Integration 
+    (Rechteck−, Trapez−, Tangenten−, Simpson−Verfahren)
+    Hinweis: 
+    y1 bis y10 des Y-Editors koennen 
+    ins Programm uebernommen werden
+:@ Version 1.02, 29. April 2005
+:@ Roland Bruggmann
+:@ Email: roland.bruggmann@gmx.net
+:ClrIO
+:Disp ""
+:Disp "..."
+:@Konfigurationen
+:Local i,oldfoldr,yeditor,z,gmlist
+:@Verzeichnis
+:getFold()→oldfoldr
+:Lbl neuverz
+:Try
+:  setFold(numerik)
+:Else
+:  ClrErr
+:  Try
+:    NewFold numerik
+:  Else
+:    ClrErr
+:    Goto modus
+:  EndTry
+:  Goto neuverz
+:EndTry
+:@Modus
+:Lbl modus
+:getMode("0")→gmlist
+:setMode({
+	  "1","1",
+	  "3","1",
+	  "4","1",
+	  "5","1",
+	  "6","1",
+	  "7","1",
+	  "8","1",
+	  "12","1",
+	  "13","1",
+	  "14","1"})
+:@Parameterliste
+:Try
+:  dim(numlist)
+:Else
+:  ClrErr
+:  {"","","",""}→numlist
+:EndTry
+:@Y−Editor:y1 bis y10
+:DelVar x
+:0→z
+:For i,1,10
+:  expr("y"&string(i)&"(x)")→yeditor
+:  If string(yeditor)≠"y"&string(i)&"(x)" Then
+:    1+z→z
+:    If dim(string(yeditor))>18 Then
+:      "y"&string(i)&"(x)"→ylist[z]
+:    Else
+:      string(yeditor)→ylist[z]
+:    EndIf
+:  EndIf
+:EndFor
+:Try
+:  dim(ylist)
+:Else
+:  ClrErr
+:  {"no"}→ylist
+:EndTry
+:@Aufgabe,Methode,Parameter1
+:Local auf,meth,msf,msn,msm,mspa,msw,
+  pml,auflist,m1list,m2list
+:"f(x) ="→msf
+:"Numerische "→msn
+:"Methode: "→msm
+:"Parameter:"→mspa
+:"Waehle "→msw
+:{"Approximation","Integration"}→auflist
+:{"Bisection","Regula falsi","Newton"}→m1list
+:{"Rechteck","Trapez","Tangenten","Simpson"}→m2list
+:{"Ja","Nein"}→qlist
+:Lbl aufgabe
+:Dialog
+:  Title msn&"Methoden"
+:  DropDown msw&"Aufgabe:",auflist,auf
+:EndDlog
+:If ok=0
+:  Goto neub
+:Lbl methode
+:Dialog
+:  Title msn&auflist[auf]
+:  DropDown msw&msm,expr("m"&string(auf)&"list"),meth
+:EndDlog
+:If ok=0
+:  Goto aufgabe
+:Lbl pam1
+:If ylist[1]≠"no" Then
+:  2→pml
+:  Dialog
+:    Title mspa
+:    Text "Funktion aus dem Y-Editor"
+:    DropDown "uebernehmen?",qlist,pml
+:    DropDown msf,ylist,yl
+:  EndDlog
+:  If ok=0
+:    Goto methode
+:  If pml=1
+:    ylist[yl]→numlist[1]
+:EndIf
+:@Hauptteil
+:Local a,b,k,msfa,msi,msnt,n,titl,w
+:" failed"→msfa
+:"Interval = [a,b]"→msi
+:" isn't true"→msnt
+:Lbl anfang
+:If auf=2 Then
+:  @Integration
+:  Local h,s,msger,msv,ms21,ms22
+:  "-Verfahren"→msv
+:  "b>a"→ms21
+:  "f(a)*f(b)≥0"→ms22
+:  numlist[1]→fstring
+:  numlist[2]→n
+:  numlist[3]→a
+:  numlist[4]→b
+:  If meth>2 Then
+:    "n = Gerade Zahl "→msger
+:  Else
+:    ""→msger
+:  EndIf
+:  @Parameter
+:  Dialog
+:    Title msn&auflist[auf]
+:    Text msm&m2list[meth]&msv
+:    Text mspa
+:    Text ""
+:    Request msf,fstring,0
+:    Text msi&"; "&ms21&"; "&ms22
+:    Request "untere Grenze a =",a
+:    Request "obere Grenze
+:    b =",b
+:    Text msger
+:    Request "n Schritte",n
+:  EndDlog
+:  If ok=0 Then
+:    If ylist[1]="no"
+:    Goto methode
+:    Goto pam1
+:  EndIf
+:  {fstring,n,a,b}→numlist
+:  For i,1,dim(numlist)
+:    If numlist[i]=""
+:      Goto anfang
+:  EndFor
+:  @Test n=gerade
+:  If meth>2 and remain(expr(n),2)>0 Then
+:    Text msger&msnt
+:    Goto anfang
+:  EndIf
+:  @Test Interval
+:  expr(fstring)→f(x)
+:  expr(a)→a
+:  expr(b)→b
+:  For i,1,2
+:    If not expr(#("ms2"&string(i))) Then
+:      Text expr("ms2"&string(i))&msnt
+:      Goto anfang
+:    EndIf
+:  EndFor
+:  @Kern
+:  expr(n)→n
+:  (b-a)/n→h
+:  If meth<3 Then
+:    @Kern rechteck u. trapez
+:    f(a)/meth→s
+:    setMode({"14","3"})
+:    [[0,a,f(a),s,h*s]]→loesung
+:    For i,1,n-1
+:      a+i*h→w
+:      s+f(w)→s
+:      augment(loesung;[[i,w,f(w),s,h*s]])→loesung
+:    EndFor
+:    If meth=2 Then
+:      @trapez
+:      s+f(b)/2→s
+:      augment(loesung;[[n,b,f(b),s,h*s]])→loesung
+:    EndIf
+:    h*s→res
+:  ElseIf meth=3 Then
+:    @Kern tangenten
+:    a+h→w
+:    f(w)→s
+:    setMode({"14","3"})
+:    [[1,w,f(w),s,2*h*s]]→loesung
+:    For i,3,n-1,2
+:      a+i*h→w
+:      s+f(w)→s
+:      augment(loesung;[[i,w,f(w),s,2*h*s]])→loesung
+:    EndFor
+:    2*h*s→res
+:  ElseIf meth=4 Then
+:    @Kern simpson
+:    f(a)→s
+:    2→k
+:    setMode({"14","3"})
+:    [[0,a,f(a),s,h/3*s]]→loesung
+:    For i,1,n-1
+:      6-k→k
+:      a+i*h→w
+:      s+k*f(w)→s
+:      augment(loesung;[[i,w,f(w),s,h/3*s]])→loesung
+:    EndFor
+:    s+f(b)→s
+:    augment(loesung;[[n,b,f(b),s,h/3*s]])→loesung
+:    h/3*s→res
+:  EndIf
+:  @Exakt,Fehler,Titelmatrize
+:  Local exakt,fehler
+:  Try
+:    string(approx(∫(f(x),x,a,b)))→exakt
+:  Else
+:    ClrErr
+:    msfa→exakt
+:    msfa→fehler
+:    Goto titel
+:  EndTry
+:  string(approx(round(abs((res-expr(exakt))
+      /(expr(exakt)))*100,2)))&"%"→fehler
+:  Lbl titel
+:  setMode({"14","1"})
+:  [[auflist[auf]&";"&expr("m"&string(auf)&"list")[meth]&msv,
+      fstring,
+      "h="&string(approx(h)),
+      "Exakt="&exakt,
+      "Fehler="&fehler]
+      ["i","xi","f(xi)","ε","ΣA"]]→titl
+:Else
+:  @Approximation
+:  Local msit,stel
+:  "n Iterationen     "→msit
+:  If meth=3 Then
+:    @Newton
+:    Local bed,bed1,bed2,eps,ms13,pa,palist,x0,x1
+:    "Startwert "→ms13
+:    {"n","eps"}→palist
+:    numlist[1]→fstring
+:    numlist[2]→n
+:    "0.0001"→eps
+:    numlist[4]→x0
+:    @Parameter
+:    Dialog
+:      Title msn&auflist[auf]
+:      Text msm&m1list[meth]
+:      Text mspa
+:      Text ""
+:      Request msf,fstring,0
+:      Request ms13&"x0=",x0
+:      DropDown msw&mspa,palist,pa
+:      Request msit,n
+:      Request "Genauigkeit eps",eps
+:    EndDlog
+:    If ok=0 Then
+:      If ylist[1]="no"
+:        Goto methode
+:      Goto pam1
+:    EndIf
+:    {fstring,n,eps,x0}→numlist
+:    If fstring="" or numlist[pa+1]="" or x0=""
+:      Goto anfang
+:    @Test Startwert
+:    expr(fstring)→f(x)
+:    expr(x0)→x0
+:    d(f(x),x)→g(x)
+:    If f(x0)*g(x0)=0 Then
+:      Text ms13&msfa&": f(x0)*f'(x0)=0"
+:      Goto anfang
+:    EndIf
+:    @Kern Newton
+:    expr(n)→n
+:    expr(eps)→eps
+:    "i=n"→bed1
+:    "abs(x1-x0)<eps"→bed2
+:    expr("bed"&string(pa))→bed
+:    [[auflist[auf],expr("m"&string(auf)&"list")[meth],
+      fstring,""]
+      ["i","xi","f(xi)","f'(xi)"]]→titl
+:    setMode({"14","3"})
+:    [[0,x0,f(x0),g(x0)]]→loesung
+:    1→i
+:    Loop
+:      x0-f(x0)/(g(x0))→x1
+:      augment(loesung;[[i,x1,f(x1),g(x1)]])→loesung
+:      If expr(bed)
+:        Exit
+:      x1→x0
+:      i+1→i
+:    EndLoop
+:    setMode({"14","1"})
+:    If pa=1 Then
+:      7→stel
+:    Else
+:      dim(string(fPart(eps)))+1→stel
+:    EndIf
+:    x1→res
+:  Else
+:    @Bisection/Regula falsi
+:    Local kern,kern1,kern2,ms11,ms12
+:    "f(a)<0"→ms11
+:    "f(b)>0"→ms12
+:    numlist[1]→fstring
+:    numlist[2]→n
+:    numlist[3]→a
+:    numlist[4]→b
+:    @Parameter
+:    Dialog
+:      Title msn&auflist[auf]
+:      Text msm&m1list[meth]
+:      Text mspa
+:      Text ""
+:      Request msf,fstring,0
+:      Text msi
+:      Request ms11&"; a=",a
+:      Request ms12&"; b=",b
+:      Request msit,n
+:    EndDlog
+:    If ok=0 Then
+:      If ylist[1]="no"
+:        Goto methode
+:      Goto pam1
+:    EndIf
+:    {fstring,n,a,b}→numlist
+:    For i,1,dim(numlist)
+:      If numlist[i]=""
+:        Goto anfang
+:    EndFor
+:    @Test Interval
+:    expr(fstring)→f(x)
+:    expr(a)→a
+:    expr(b)→b
+:    For i,1,2
+:      If not expr(#("ms1"&string(i))) Then
+:        Text expr("ms1"&string(i))&msnt
+:        Goto anfang
+:      EndIf
+:    EndFor
+:    @Kern Bisection/Regula falsi
+:    expr(n)→n
+:    @Formel bisection
+:    "(a+b)/2"→kern1
+:    @Formel regula-falsi
+:    "a-(b-a)/(f(b)-f(a))*f(a)"→kern2
+:    expr("kern"&string(meth))→kern
+:    [[auflist[auf],expr("m"&string(auf)&"list")[meth],
+      fstring,"",""]
+      ["i","a","b","xi","f(xi)"]]→titl
+:    expr(kern)→w
+:    setMode({"14","3"})
+:    [[1,a,b,w,f(w)]]→loesung
+:    For i,2,n
+:      If f(w)<0 Then
+:        w→a
+:      Else
+:        w→b
+:      EndIf
+:      expr(kern)→w
+:      augment(loesung;[[i,a,b,w,f(w)]])→loesung
+:    EndFor
+:    7→stel
+:    w→res
+:  EndIf
+:  setMode({"14","1"})
+:EndIf
+:augment(titl;loesung)→loesung
+:@Hauptteil Ende
+:@Resultat
+:Local msa,mse,msma,msns,msr,mssp,msvn,msvz,
+    fldr,namelist,reslist,splist,varlist,ma,ns
+:getFold()→fldr
+:"max. acht Zeichen)"→msa
+:"Ergebnisse als "→mse
+:"Matrizenvariable "→msma
+:"Nullstelle "→msns
+:"Resultat "→msr
+:"speichern? "→mssp
+:"Variablenname "→msvn
+:" Verzeichnis:"→msvz
+:left(auflist[auf],3)
+    &left(expr("m"&string(auf)&"list")[meth],4)
+    &"1"→name1
+:2→ns
+:Lbl resultat
+:If auf=1 Then
+:  @Approximation
+:  "NS"&left(m1list[meth],4)&"1"→name2
+:  Dialog
+:    Title msr&m1list[meth]
+:    Text msns&"= "&string(round(res,stel))
+:    DropDown " "&msns&mssp,qlist,ns
+:    Text msvz&fldr
+:    Request msvn,name2
+:    Text mse&msma
+:    DropDown mssp&" ",qlist,ma
+:    Text msvz&fldr
+:    Request msvn,name1
+:    Text " ("&msvn&msa
+:  EndDlog
+:Else
+:  @Integration
+:  ""→name2
+:  Dialog
+:    Title msr&m2list[meth]&msv
+:    Text " h = (b-a)/n = "&string(round(h,3))
+:    Text " Naeherung N = "&string(round(res,6))
+:    Text " Exakt
+:    E = "&exakt
+:    Text " Fehler =|(N-E)/E|*100 = "&fehler
+:    Text mse&msma
+:    DropDown mssp&" ",qlist,ma
+:    Text msvz&fldr
+:    Request msvn,name1
+:    Text " ("&msvn&msa
+:  EndDlog
+:EndIf
+:If ok=0
+:  Goto anfang
+:{ma,ns}→splist
+:If splist={2,2}
+:  Goto neub
+:@Test Variablennamen
+:{name1,name2}→namelist
+:For i,1,2
+:  If splist[i]=1 and (namelist[i]="" or dim(namelist[i])>8)
+:    Goto resultat
+:EndFor
+:If splist[2]=1 and namelist[2]="x" Then
+:  Dialog
+:    Title msns
+:    Text msvn&"x unzulaessig"
+:  EndDlog
+:  If ok=0
+:    Goto resultat
+:  Goto resultat
+:EndIf
+:@Speichern
+:{msma,msns}→varlist
+:0→z
+:For i,1,2
+:  Lbl neuname
+:  If z=1 Then
+:    Dialog
+:      Title varlist[i]
+:      Text msvn&namelist[i]
+:      Text "wird bereits verwendet."
+:      Text "Variable ueberschreiben?"
+:    EndDlog
+:    If ok=0
+:      Goto resultat
+:    DelVar #(expr("name"&string(i)))
+:    0→z
+:  EndIf
+:  If i=1 and splist[1]=1 Then
+:    Try
+:      @Matirzenvariable
+:      Rename loesung,#name1
+:    Else
+:      If errornum=270 Then
+:        ClrErr
+:        1→z
+:        Goto neuname
+:      Else
+:        PassErr
+:      EndIf
+:    EndTry
+:  ElseIf i=2 and splist[2]=1 Then
+:    Try
+:      @Nullstelle
+:      Rename res,#name2
+:    Else
+:      If errornum=270 Then
+:        ClrErr
+:        1→z
+:        Goto neuname
+:      Else
+:        PassErr
+:      EndIf
+:    EndTry
+:  EndIf
+:EndFor
+:@Neue Berechnung?
+:Lbl neub
+:Local nb
+:PopUp {"Neue Berechnung","Home"},nb
+:If nb=1 Then
+:  Goto aufgabe
+:ElseIf nb=2 Then
+:  DispHome
+:EndIf
+:@Ausgangslage erstellen
+:DelVar fstring,f,g,loesung,name1,name2,res,yl,qlist,ylist
+:setMode(gmlist)
+:Try
+:  setFold(#oldfoldr)
+:Else
+:  ClrErr
+:EndTry
+:EndPrgm
+\end{verbatim}

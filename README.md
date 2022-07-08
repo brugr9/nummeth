@@ -24,16 +24,16 @@ Technologie:
 
 GUI der Applikation nummeth:
 
-![Menu Methode](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image008.png "Menu Methode")
+![Menu Methode](doc/img/nummeth_image008.png "Menu Methode")
 <br>*Fig. 1.: Menu 'Numerische Methoden' mit Selektion 'Approximation'*
 
-![Menu Approximation](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image010.png "Menu Approximation")
+![Menu Approximation](doc/img/nummeth_image010.png "Menu Approximation")
 <br>*Fig. 2.: Menu 'Numerische Approximation' mit Selektion 'Bisection'*
 
-![Menu Parameter](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image016.png "Menu Parameter")
+![Menu Parameter](doc/img/nummeth_image016.png "Menu Parameter")
 <br>*Fig. 3.: Menu 'Parameter' mit Möglichkeit der Selektion von vormalig erfassten Funktionen aus dem Y-Editor*
 
-![Dialog Bisection](doc/MSE_-_Mathematik_-_Numerische_Methoden_-_Bruggmann/img/nummeth_image018.png "Dialog Bisection")
+![Dialog Bisection](doc/img/nummeth_image018.png "Dialog Bisection")
 <br>*Fig. 4.: Menu 'Numerische Approximation' mit Parametern $f(x)$, Interval $[a,b]$ und $n$ Iterationen*
 
 ---
